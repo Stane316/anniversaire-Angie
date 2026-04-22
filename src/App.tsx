@@ -86,36 +86,42 @@ const galleryData = [
   {
     emoji: '📸',
     label: 'Selfies échangés',
+    image: '/images/selfie1.jpeg ',
     description: 'Remplace par nos selfies du quotidien',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #f97316 100%)',
   },
   {
     emoji: '😂',
     label: 'Fous rires',
+    image: '/images/fou-rires.jpeg ',
     description: 'Remplace par nos pires/moments les plus drôles',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fb923c 50%, #fbbf24 100%)',
   },
   {
     emoji: '📱',
     label: 'Messages quotidiens',
+    image: '/images/messages.jpeg ',
     description: 'Remplace par des screenshots de nos conversations',
     gradient: 'linear-gradient(135deg, #431407 0%, #c2410c 50%, #f97316 100%)',
   },
   {
     emoji: '🎬',
     label: 'Sessions Nollywood',
+    image: '/images/nollywood.jpeg ',
     description: 'Remplace par des photos de nos sessions tv',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 100%)',
   },
   {
     emoji: '🌸',
-    label: 'Mode mangas',
-    description: 'Remplace par des photos de toi en mode lecture',
+    label: 'Mode star',
+    image: '/images/mode-star.jpeg ',
+    description: ' photos de toi en mode lecture',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fdba74 50%, #fed7aa 100%)',
   },
   {
     emoji: '💃',
     label: 'Dance mode',
+    image: '/images/dance-mode.jpeg ',
     description: 'Remplace par tes meilleurs moves de danse',
     gradient: 'linear-gradient(135deg, #431407 0%, #ea580c 50%, #fbbf24 100%)',
   },
@@ -142,7 +148,7 @@ const messagesData = [
     author: 'En retard mais sincère 🧡',
   },
   {
-    text: 'Merci pour chaque photo envoyée à 3h du matin. Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
+    text: 'Merci pour chaque discussion profonde à n\'importe quel heure . Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
     author: 'Avec tout mon cœur',
   },
 ];

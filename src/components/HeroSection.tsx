@@ -49,6 +49,22 @@ export default function HeroSection() {
         />
       </div>
 
+      {/* Photo d'Angie */}
+      <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 1.2 }}
+          className="mt-8 flex justify-center"
+      >
+        <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-2 border-orange-500/30 shadow-[0_0_40px_rgba(234,88,12,0.2)]">
+           <img
+               src="/images/photo-hero.jpeg"
+               alt="Angie"
+               className="w-full h-full object-cover"
+            />
+        </div>
+     </motion.div>
+
       {/* Grid overlay */}
       <div
         className="absolute inset-0 opacity-[0.03]"

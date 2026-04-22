@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 interface GalleryItem {
+  image: string | undefined;
   emoji: string;
   label: string;
   description: string;
@@ -71,22 +72,26 @@ export default function GallerySection({ items }: GallerySectionProps) {
             >
               {/* Image placeholder */}
               <div
-                className="relative aspect-[4/3] md:aspect-[3/4] overflow-hidden"
-                style={{
-                  background: item.gradient,
-                }}
-              >
-                {/* Placeholder content */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                  <span className="text-5xl md:text-6xl transition-transform duration-500 group-hover:scale-125">
-                    {item.emoji}
-                  </span>
-                  <span
-                    className="text-xs tracking-[0.2em] uppercase text-white/50 font-light"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    {item.label}
-                  </span>
+                 className="relative aspect-[4/3] md:aspect-[3/4] overflow-hidden"
+                 style={{
+                   background: item.gradient,
+                 }}
+                >
+                 {/* TA PHOTO */}
+                 <img
+                     src={item.image}
+                     alt={item.label}
+                     className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                  />
+
+                 {/* Label en overlay */}
+                <div className="absolute inset-0 flex flex-col items-center justify-end p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent">
+                    <span
+                        className="text-xs tracking-[0.2em] uppercase text-white/80 font-light"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                          {item.label}
+                     </span>
                 </div>
 
                 {/* Overlay */}
