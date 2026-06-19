@@ -7,6 +7,7 @@ import HeroSection from './components/HeroSection';
 import StorySection from './components/StorySection';
 import QualitiesSection from './components/QualitiesSection';
 import JournalSection from './components/JournalSection';
+import StatsSection from './components/StatsSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
 import LetterSection from './components/LetterSection';
@@ -209,8 +210,11 @@ export default function App() {
         <QualitiesSection qualities={qualitiesData} />
 
         <Divider />
-        {/* 🆕 NEW: Journal Intime */}
         <JournalSection />
+
+        <Divider />
+        {/* 🆕 NEW: Stats Section */}
+        <StatsSection />
 
         <Divider />
         <GallerySection items={galleryData} />
