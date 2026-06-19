@@ -9,6 +9,7 @@ import QualitiesSection from './components/QualitiesSection';
 import JournalSection from './components/JournalSection';
 import StatsSection from './components/StatsSection';
 import BucketListSection from './components/BucketListSection';
+import NotrePromesseSection from './components/NotrePromesseSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
 import LetterSection from './components/LetterSection';
@@ -221,6 +222,10 @@ export default function App() {
         <BucketListSection />
 
         <Divider />
+        {/* 🆕 NEW: Notre Promesse */}
+        <NotrePromesseSection />
+
+        <Divider />
         <GallerySection items={galleryData} />
 
         <Divider />
@@ -230,7 +235,6 @@ export default function App() {
         <LetterSection />
 
         <Divider />
-        {/* 🆕 NEW: Conclusion / Mot de la fin */}
         <ConclusionSection />
 
         <Divider />
