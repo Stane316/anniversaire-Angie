@@ -8,6 +8,7 @@ import StorySection from './components/StorySection';
 import QualitiesSection from './components/QualitiesSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
+import LetterSection from './components/LetterSection';
 import FinaleSection from './components/FinaleSection';
 import AudioToggle from './components/AudioToggle';
 import ScrollProgressBar from './components/ScrollProgressBar';
@@ -238,6 +239,9 @@ export default function App() {
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
+
+    
+        <LetterSection />
 
         <FinaleSection />
       </div>
