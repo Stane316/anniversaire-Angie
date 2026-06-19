@@ -12,6 +12,7 @@ import BucketListSection from './components/BucketListSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
 import LetterSection from './components/LetterSection';
+import ConclusionSection from './components/ConclusionSection';
 import FinaleSection from './components/FinaleSection';
 import AudioToggle from './components/AudioToggle';
 import ScrollProgressBar from './components/ScrollProgressBar';
@@ -217,7 +218,6 @@ export default function App() {
         <StatsSection />
 
         <Divider />
-        {/* 🆕 NEW: Bucket List */}
         <BucketListSection />
 
         <Divider />
@@ -228,6 +228,10 @@ export default function App() {
 
         <Divider />
         <LetterSection />
+
+        <Divider />
+        {/* 🆕 NEW: Conclusion / Mot de la fin */}
+        <ConclusionSection />
 
         <Divider />
         <FinaleSection />

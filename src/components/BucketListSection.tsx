@@ -12,7 +12,7 @@ interface Dream {
 const DREAMS: Dream[] = [
   {
     emoji: '🌅',
-    title: 'Le premier café du matin ensemble',
+    title: 'Le premier repas d\'atassi ensemble',
     description: 'Un dimanche, sans réveil. Juste nous deux et le silence.',
     status: 'à vivre',
     category: 'moment',
@@ -26,7 +26,7 @@ const DREAMS: Dream[] = [
   },
   {
     emoji: '🎬',
-    title: 'Notre marathon Nollywood',
+    title: 'Notre marathon animés et mangas romance',
     description: '24h de films, de rires, et de commentaires sur chaque scène.',
     status: 'à vivre',
     category: 'aventure',
