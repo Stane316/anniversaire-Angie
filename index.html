@@ -3,43 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5.0" />
-    <meta name="description" content="Une dédicace pour Angie — 2 ans qu'on se connaît depuis le 12 juin 2024. Un site qui ne fane jamais, comme notre amitié." />
+    <meta name="description" content="Une dédicace pour Angie (Bellange) — 2 ans qu'on se connaît depuis le 12 juin 2024. Un site qui ne fane jamais, comme notre amitié. 🧡" />
     <meta name="theme-color" content="#050505" />
-    <meta name="author" content="Stan(e)" />
+    <meta name="author" content="Stane" />
     <meta name="robots" content="index, follow" />
 
     <!-- ═══ Favicon + Apple Touch Icon ═══ -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧡</text></svg>" />
-    <link rel="apple-touch-icon" href="/images/og-image.jpg" />
+    <link rel="apple-touch-icon" href="/images/og-bellange.png" />
 
-    <!-- ═══ Open Graph (Facebook, WhatsApp, LinkedIn, Discord) ═══ -->
+    <!-- ═══ Open Graph — image PERSONNALISÉE de Bellange ═══ -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Pour Angie 🧡" />
-    <meta property="og:title" content="Pour Angie 🧡 — 2 ans qu'on se connaît" />
-    <meta property="og:description" content="Une dédicace spéciale pour nos 2 ans d'amitié. Un site qui ne fane jamais, comme notre amitié. ✨" />
-    <meta property="og:image" content="/images/og-image.jpg" />
-    <meta property="og:image:secure_url" content="/images/og-image.jpg" />
+    <meta property="og:title" content="Pour Angie (Bellange) 🧡 — 2 ans qu'on se connaît" />
+    <meta property="og:description" content="Une dédicace spéciale pour nos 2 ans d'amitié. Un site qui ne fane jamais, comme notre amitié. Du fond du cœur. ✨🧡" />
+    <meta property="og:image" content="/images/og-bellange.png" />
+    <meta property="og:image:secure_url" content="/images/og-bellange.png" />
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1792" />
-    <meta property="og:image:height" content="1008" />
-    <meta property="og:image:alt" content="Une dédicace pour Angie — 2 ans qu'on se connaît, le 12 juin 2026" />
+    <meta property="og:image:width" content="1023" />
+    <meta property="og:image:height" content="1537" />
+    <meta property="og:image:alt" content="Illustration personnalisée de Bellange (Angie) — 2 ans qu'on se connaît" />
     <meta property="og:url" content="https://anniversaire-angie.netlify.app" />
     <meta property="og:locale" content="fr_FR" />
+    <meta property="og:determiner" content="8241725" />
 
     <!-- ═══ Twitter Card ═══ -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Pour Angie 🧡 — 2 ans qu'on se connaît" />
+    <meta name="twitter:title" content="Pour Angie (Bellange) 🧡 — 2 ans qu'on se connaît" />
     <meta name="twitter:description" content="Une dédicace spéciale pour nos 2 ans d'amitié. Un site qui ne fane jamais ✨" />
-    <meta name="twitter:image" content="/images/og-image.jpg" />
-    <meta name="twitter:image:alt" content="Une dédicace pour Angie — 2 ans qu'on se connaît, le 12 juin 2026" />
+    <meta name="twitter:image" content="/images/og-bellange.png" />
+    <meta name="twitter:image:alt" content="Illustration personnalisée de Bellange — 2 ans d'amitié" />
 
-    <title>Pour Angie 🧡 ✦ 2 ans qu'on se connaît</title>
+    <!-- ═══ Schema.org JSON-LD ═══ -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Pour Angie — 2 ans qu'on se connaît",
+      "description": "Une dédicace spéciale pour nos 2 ans d'amitié depuis le 12 juin 2024",
+      "url": "https://anniversaire-angie.netlify.app",
+      "image": "/images/og-bellange.jpg",
+      "inLanguage": "fr-FR"
+    }
+    </script>
+
+    <title>Pour Angie (Bellange) 🧡 ✦ 2 ans qu'on se connaît</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes:wght@400&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- ═══ Critical inline CSS to prevent horizontal scroll & FOUC ═══ -->
+    <!-- ═══ Critical inline CSS — prevents horizontal scroll & FOUC ═══ -->
     <style>
       html, body {
         margin: 0;
@@ -48,17 +62,19 @@
         color: #fff;
         overflow-x: hidden;
         max-width: 100vw;
+        width: 100%;
       }
+      #root { overflow-x: hidden; width: 100%; max-width: 100vw; }
     </style>
   </head>
   <body class="bg-black text-white">
     <div id="root"></div>
     <noscript>
       <div style="color:white;background:#050505;padding:40px 20px;text-align:center;font-family:sans-serif;">
-        <h1>🧡 Pour Angie</h1>
-        <p>Ce site nécessite JavaScript pour fonctionner. Activez-le pour découvrir la dédicace.</p>
+        <h1>🧡 Pour Angie (Bellange)</h1>
+        <p>Ce site nécessite JavaScript pour fonctionner. Activez-le pour découvrir la dédicace de nos 2 ans.</p>
       </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a0e3b3365c61e3bc',t:'MTc4MTg4NDMzNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
