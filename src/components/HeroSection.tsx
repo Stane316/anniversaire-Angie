@@ -199,7 +199,8 @@ export default function HeroSection() {
                 left: `calc(50% + ${photo.x}px)`,
                 top: `calc(50% + ${photo.y}px)`,
                 transform: `translate(-50%, -50%) rotate(${photo.rot}deg)`,
-                width: '110px',
+                width: '28vw',                       // ✅ Responsive: 28% of viewport width
+                maxWidth: '130px',
                 '--rot': `${photo.rot}deg`,
                 animation: 'photo-float 5s ease-in-out infinite',
                 animationDelay: `${i * 0.6}s`,
@@ -211,6 +212,7 @@ export default function HeroSection() {
               alt=""
               role="presentation"
               className="w-full h-28 object-cover"
+              style={{ aspectRatio: '3/4' }}
               loading="lazy"
             />
           </motion.div>
