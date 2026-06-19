@@ -12,7 +12,7 @@ import AudioToggle from './components/AudioToggle';
 import ScrollProgressBar from './components/ScrollProgressBar';
 
 // ═══════════════════════════════════════════════
-// DATA: Story sections
+// DATA: Story sections — 2 ans de rencontre (12 juin 2024 → 12 juin 2026)
 // ═══════════════════════════════════════════════
 const storyData = [
   {
@@ -32,19 +32,19 @@ const storyData = [
     emoji: '📖',
     label: 'Chapitre 3',
     title: 'Nos Moments de Folie',
-    text: 'Entre les novelas et Nollywood à la télé, les mangas romance qu\'on dévore, la musique qui nous transporte, et parfois quelques pas de danse improvisés… chaque moment passé ensemble est un souvenir gravé. Et ces photos qu\'on s\'échangeait quotidiennement ? C\'était notre façon à nous de se dire "je pense à toi" sans avoir besoin de mots.',
+    text: 'Entre les novelas et Nollywood à la télé, les mangas romance qu\'on dévore, la musique qui nous transporte, et parfois quelques pas de danse improvisés… chaque moment passé ensemble est un souvenir gravé. Et ces photos qu\'on s\'échangeait quotidiennement ? C\'était notre façon à nous de nous dire "je pense à toi" sans avoir besoin de mots.',
   },
   {
     emoji: '🧡',
     label: 'Chapitre 4',
-    title: 'Bientôt 2 Ans',
-    text: 'Le 12 juin, ça fera bientôt 2 ans. 2 ans que tu es cette personne sur qui je peux compter, celle qui sait écouter, conseiller, épauler. Tu as ce don de te mettre à l\'écoute des autres avec une sincérité désarmante. Et ce site, c\'est ma façon de te dire que tu comptes, même quand je ne le dis pas assez.',
-    date: '12 Juin 2026 — bientôt 2 ans 🎉',
+    title: '2 Ans Déjà',
+    text: 'Le 12 juin 2026, ça fera 2 ans. 2 ans que tu es cette personne sur qui je peux compter, celle qui sait écouter, conseiller, épauler. Tu as ce don de te mettre à l\'écoute des autres avec une sincérité désarmante. Et ce site, c\'est ma façon de te dire que tu comptes, même quand je ne le dis pas assez.',
+    date: '12 Juin 2026 — 2 ans 🧡',
   },
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Qualities / Super-pouvoirs
+// DATA: Qualities (inchangé)
 // ═══════════════════════════════════════════════
 const qualitiesData = [
   {
@@ -80,55 +80,55 @@ const qualitiesData = [
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Gallery items — paths FIXED (no trailing spaces, "fou-rire" not "fou-rires")
+// DATA: Gallery items
 // ═══════════════════════════════════════════════
 const galleryData = [
   {
     emoji: '📸',
     label: 'Selfies échangés',
     image: '/images/selfie1.jpeg',
-    description: 'Remplace par nos selfies du quotidien',
+    description: 'Nos selfies du quotidien',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #f97316 100%)',
   },
   {
     emoji: '😂',
     label: 'Fous rires',
     image: '/images/fou-rire.jpeg',
-    description: 'Remplace par nos pires/moments les plus drôles',
+    description: 'Nos moments les plus drôles',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fb923c 50%, #fbbf24 100%)',
   },
   {
     emoji: '📱',
     label: 'Messages quotidiens',
     image: '/images/messages.jpeg',
-    description: 'Remplace par des screenshots de nos conversations',
+    description: 'Des screenshots de nos conversations',
     gradient: 'linear-gradient(135deg, #431407 0%, #c2410c 50%, #f97316 100%)',
   },
   {
     emoji: '🎬',
     label: 'Sessions Nollywood',
     image: '/images/nollywood.jpeg',
-    description: 'Remplace par des photos de nos sessions tv',
+    description: 'Nos sessions tv',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 100%)',
   },
   {
     emoji: '🌸',
     label: 'Mode star',
     image: '/images/mode-star.jpeg',
-    description: 'photos de toi en mode lecture',
+    description: 'En mode lecture',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fdba74 50%, #fed7aa 100%)',
   },
   {
     emoji: '💃',
     label: 'Dance mode',
     image: '/images/dance-mode.jpeg',
-    description: 'Remplace par tes meilleurs moves de danse',
+    description: 'Tes meilleurs moves de danse',
     gradient: 'linear-gradient(135deg, #431407 0%, #ea580c 50%, #fbbf24 100%)',
   },
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Messages
+// DATA: Messages — adapté au thème "2 ans de rencontre"
 // ═══════════════════════════════════════════════
 const messagesData = [
   {
@@ -140,15 +140,15 @@ const messagesData = [
     author: 'Sur nous',
   },
   {
-    text: 'Je t\'ai offert cette chanson que j\'ai écrite et composée pour notre amitié. Mais les mots dans une chanson, ça ne suffit pas toujours. Alors j\'ai fait ce site, pour que tu aies quelque chose que tu peux revisiter, encore et encore.',
+    text: 'Je t\'ai offert cette chanson que j\'ai écrite et composée pour notre amitié. Mais les mots dans une chanson, ça ne suffit pas toujours. Alors j\'ai fait ce site, pour que tu aies quelque chose que tu peux revisiter, encore et encore — pour nos 2 ans, et pour tous ceux qui viendront.',
     author: 'Pourquoi ce site',
   },
   {
-    text: 'Désolé de pas avoir eu le cadeau parfait pour ton anniversaire le 17 décembre. Mais ce cadeau-là, il ne fane pas, il ne se perd pas. Il reste. Comme notre amitié.',
-    author: 'En retard mais sincère 🧡',
+    text: '2 ans. 730 jours. Des milliers de messages, des fous rires, des discussions à n\'importe quelle heure. Et toi, toujours là. Ce site, c\'est ma façon de te dire merci d\'être restée.',
+    author: 'Pour nos 2 ans 🧡',
   },
   {
-    text: 'Merci pour chaque discussion profonde à n\'importe quel heure. Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
+    text: 'Merci pour chaque discussion profonde à n\'importe quelle heure. Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
     author: 'Avec tout mon cœur',
   },
 ];
@@ -180,17 +180,14 @@ export default function App() {
         <ScrollProgressBar />
         <AudioToggle />
 
-        {/* Hero */}
         <HeroSection />
 
-        {/* Divider */}
         <div className="flex items-center justify-center py-8">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
 
-        {/* Story */}
         <div className="max-w-7xl mx-auto">
           {storyData.map((story, i) => (
             <StorySection
@@ -205,44 +202,36 @@ export default function App() {
           ))}
         </div>
 
-        {/* Divider */}
         <div className="flex items-center justify-center py-8">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
 
-        {/* Qualities */}
         <QualitiesSection qualities={qualitiesData} />
 
-        {/* Divider */}
         <div className="flex items-center justify-center py-8">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
 
-        {/* Gallery */}
         <GallerySection items={galleryData} />
 
-        {/* Divider */}
         <div className="flex items-center justify-center py-8">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
 
-        {/* Messages */}
         <MessageSection messages={messagesData} />
 
-        {/* Divider */}
         <div className="flex items-center justify-center py-8">
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
           <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
           <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
         </div>
 
-        {/* Finale */}
         <FinaleSection />
       </div>
     </div>

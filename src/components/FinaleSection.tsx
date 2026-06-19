@@ -1,312 +1,403 @@
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect, useRef, useCallback, useState } from 'react';
+import { motion, useInView } from 'framer-motion';
 
-type Phase = 'loading' | 'title' | 'countdown' | 'cta' | 'exiting' | 'reveal';
-
-interface IntroOverlayProps {
-  onEnter: () => void;
+interface Burst {
+  id: number;
+  x: number;
+  y: number;
+  hue: number;
+  delay: number;
+  size: number;
 }
 
-export default function IntroOverlay({ onEnter }: IntroOverlayProps) {
-  const [phase, setPhase] = useState<Phase>('loading');
-  const [progress, setProgress] = useState(0);
-  const [count, setCount] = useState(3);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+interface Confetto {
+  id: number;
+  x: number;
+  delay: number;
+  duration: number;
+  color: string;
+  shape: 'heart' | 'circle' | 'star';
+  size: number;
+}
 
-  // Loading animation
+const FINALE_PHOTOS = [
+  '/images/photo-hero.jpeg',
+  '/images/mode-star.jpeg',
+  '/images/dance-mode.jpeg',
+  '/images/fou-rire.jpeg',
+  '/images/selfie1.jpeg',
+];
+
+const CONFETTO_COLORS = [
+  '#f97316', '#fb923c', '#fbbf24', '#f59e0b',
+  '#fed7aa', '#fda4af', '#ffedd5', '#ffffff',
+];
+
+export default function FinaleSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const [bursts, setBursts] = useState<Burst[]>([]);
+  const [confetti, setConfetti] = useState<Confetto[]>([]);
+  const [photoIdx, setPhotoIdx] = useState(0);
+  const [triggered, setTriggered] = useState(false);
+
+  // Photo carousel
   useEffect(() => {
-    if (phase !== 'loading') return;
+    if (!triggered) return;
     const interval = setInterval(() => {
-      setProgress((p) => {
-        const next = p + 1.4;
-        if (next >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setPhase('title'), 200);
-          return 100;
-        }
-        return next;
-      });
-    }, 50);
+      setPhotoIdx((i) => (i + 1) % FINALE_PHOTOS.length);
+    }, 3000);
     return () => clearInterval(interval);
-  }, [phase]);
+  }, [triggered]);
 
-  // Title → Countdown
-  useEffect(() => {
-    if (phase !== 'title') return;
-    const t = setTimeout(() => setPhase('countdown'), 2000);
-    return () => clearTimeout(t);
-  }, [phase]);
+  const handleSurprise = useCallback(() => {
+    if (triggered) return;
+    setTriggered(true);
 
-  // Countdown 3 → 2 → 1
-  useEffect(() => {
-    if (phase !== 'countdown') return;
-    setCount(3);
-    const t1 = setTimeout(() => setCount(2), 800);
-    const t2 = setTimeout(() => setCount(1), 1600);
-    const t3 = setTimeout(() => setPhase('cta'), 2400);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-  }, [phase]);
+    // 8 firework bursts across the screen
+    const newBursts: Burst[] = Array.from({ length: 8 }, (_, i) => ({
+      id: i,
+      x: 15 + Math.random() * 70,
+      y: 20 + Math.random() * 50,
+      hue: 20 + Math.random() * 30,
+      delay: i * 0.4,
+      size: 80 + Math.random() * 80,
+    }));
+    setBursts(newBursts);
 
-  const handleEnter = () => {
-    setPhase('exiting');
-    setTimeout(() => setPhase('reveal'), 600);
-    setTimeout(onEnter, 1600);
-  };
+    // 80 heart confetti
+    const newConfetti: Confetto[] = Array.from({ length: 80 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 4 + Math.random() * 3,
+      color: CONFETTO_COLORS[Math.floor(Math.random() * CONFETTO_COLORS.length)],
+      shape: Math.random() > 0.6 ? 'heart' : Math.random() > 0.5 ? 'star' : 'circle',
+      size: 8 + Math.random() * 14,
+    }));
+    setConfetti(newConfetti);
+  }, [triggered]);
+
+  const title = "2 ans qu'on se connaît".split(' ');
+  const subtitle = "Angie".split('');
 
   return (
-    <AnimatePresence>
-      {(phase === 'loading' || phase === 'title' || phase === 'countdown' || phase === 'cta') && (
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 py-20"
+    >
+      {/* Background mega glow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          key="overlay"
-          className="fixed inset-0 z-[100] bg-black flex flex-col items-center justify-center overflow-hidden"
-          exit={{
-            clipPath: 'circle(150% at 50% 50%)',
-            transition: { duration: 1.2, ease: [0.76, 0, 0.24, 1] },
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 2, ease: 'easeOut' }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(249,115,22,0.18) 0%, rgba(251,191,36,0.08) 40%, transparent 70%)',
+            filter: 'blur(60px)',
           }}
-        >
-          {/* Background ambient glow */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
-              style={{
-                background: 'radial-gradient(circle, rgba(249,115,22,0.10) 0%, transparent 70%)',
-                filter: 'blur(60px)',
-              }}
-              animate={{ scale: [1, 1.2, 1], opacity: [0.6, 1, 0.6] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-            />
-          </div>
+        />
+      </div>
 
-          {/* Sparkles */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {Array.from({ length: 20 }).map((_, i) => {
-              const left = Math.random() * 100;
-              const delay = Math.random() * 4;
-              return (
-                <div
-                  key={i}
-                  className="absolute sparkle-star animate-twinkle"
-                  style={{
-                    left: `${left}%`,
-                    top: `${Math.random() * 100}%`,
-                    animationDelay: `${delay}s`,
-                    opacity: 0.5,
-                  }}
-                />
-              );
-            })}
-          </div>
-
-          <div className="relative z-10 flex flex-col items-center px-6 text-center">
-            <AnimatePresence mode="wait">
-              {/* ═══ LOADING PHASE ═══ */}
-              {phase === 'loading' && (
-                <motion.div
-                  key="loading"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col items-center gap-8"
-                >
-                  <motion.div
-                    className="text-5xl md:text-6xl animate-heartbeat"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                  >
-                    🧡
-                  </motion.div>
-                  <p
-                    className="text-xs tracking-[0.5em] uppercase text-orange-300/50"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    Préparation de ta surprise
-                  </p>
-                  <div className="w-64 md:w-80 h-0.5 bg-white/5 rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full loading-bar"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                  <p
-                    className="text-[10px] tracking-[0.4em] uppercase text-orange-400/40"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    {Math.round(progress)}%
-                  </p>
-                </motion.div>
-              )}
-
-              {/* ═══ TITLE PHASE ═══ */}
-              {phase === 'title' && (
-                <motion.div
-                  key="title"
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.1 }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="flex flex-col items-center gap-4"
-                >
-                  <p
-                    className="text-xs tracking-[0.5em] uppercase text-orange-300/50"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    ✦ Pour toi ✦
-                  </p>
-                  <h1
-                    className="text-shimmer font-bold"
-                    style={{
-                      fontFamily: "'Great Vibes', cursive",
-                      fontSize: 'clamp(5rem, 14vw, 9rem)',
-                      fontWeight: 400,
-                    }}
-                  >
-                    Angie
-                  </h1>
-                  <div className="orange-line w-32" />
-                  <p
-                    className="text-base md:text-lg text-orange-200/60 italic mt-2"
-                    style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 500 }}
-                  >
-                    Une aventure juste pour toi
-                  </p>
-                </motion.div>
-              )}
-
-              {/* ═══ COUNTDOWN PHASE ═══ */}
-              {phase === 'countdown' && (
-                <motion.div
-                  key="countdown"
-                  className="relative h-40 md:h-56 flex items-center justify-center"
-                >
-                  <AnimatePresence mode="wait">
-                    {[3, 2, 1].map(
-                      (n) =>
-                        count === n && (
-                          <motion.div
-                            key={n}
-                            initial={{ opacity: 0, scale: 0.3, rotate: -30 }}
-                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                            exit={{ opacity: 0, scale: 2, rotate: 30 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                            className="absolute text-shimmer font-bold"
-                            style={{
-                              fontFamily: "'Great Vibes', cursive",
-                              fontSize: 'clamp(8rem, 25vw, 16rem)',
-                              fontWeight: 400,
-                              lineHeight: 1,
-                            }}
-                          >
-                            {n}
-                          </motion.div>
-                        )
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              )}
-
-              {/* ═══ CTA PHASE ═══ */}
-              {phase === 'cta' && (
-                <motion.div
-                  key="cta"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="flex flex-col items-center gap-10"
-                >
-                  <p
-                    className="text-lg md:text-xl text-orange-200/70 font-light italic"
-                    style={{ fontFamily: "'Cormorant Garamond', serif" }}
-                  >
-                    Prête à découvrir ce qui t'attend ?
-                  </p>
-                  <motion.button
-                    onClick={handleEnter}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="group relative px-12 py-5 rounded-full overflow-hidden animate-glow-pulse"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500 transition-all duration-300" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-30 blur-2xl transition-opacity duration-300" />
-                    <span className="relative text-white font-medium text-lg tracking-[0.2em] uppercase">
-                      Entrer ✦
-                    </span>
-                  </motion.button>
-                  <p
-                    className="text-[10px] tracking-[0.4em] uppercase text-orange-400/30 mt-2"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    Mets le son 🔊
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </motion.div>
-      )}
-
-      {/* ═══ CURTAIN EXIT ═══ */}
-      {phase === 'exiting' && (
-        <motion.div
-          key="curtain"
-          className="fixed inset-0 z-[101] pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          {/* Two curtains closing */}
+      {/* ═══ Confetti rain ═══ */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {confetti.map((c) => (
           <motion.div
-            className="absolute top-0 left-0 w-1/2 h-full bg-black"
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-          />
-          <motion.div
-            className="absolute top-0 right-0 w-1/2 h-full bg-black"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-          />
-          {/* Center glow */}
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            key={c.id}
+            className="absolute"
+            style={{
+              left: `${c.x}%`,
+              top: '-40px',
+              width: c.size,
+              height: c.size,
+            }}
+            initial={{ y: 0, rotate: 0, opacity: 1 }}
+            animate={{
+              y: '120vh',
+              rotate: 720,
+              opacity: [1, 1, 0],
+            }}
+            transition={{
+              duration: c.duration,
+              delay: c.delay,
+              ease: 'linear',
+            }}
           >
-            <p
-              className="text-shimmer text-4xl md:text-5xl"
-              style={{ fontFamily: "'Great Vibes', cursive", fontWeight: 400 }}
-            >
-              C'est parti… 🧡
-            </p>
+            {c.shape === 'heart' && (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: c.color,
+                  clipPath: 'path("M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z")',
+                  filter: `drop-shadow(0 0 6px ${c.color}80)`,
+                }}
+              />
+            )}
+            {c.shape === 'star' && (
+              <div
+                className="sparkle-star"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: c.color,
+                  filter: `drop-shadow(0 0 4px ${c.color})`,
+                }}
+              />
+            )}
+            {c.shape === 'circle' && (
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '50%',
+                  background: c.color,
+                  filter: `drop-shadow(0 0 4px ${c.color})`,
+                }}
+              />
+            )}
           </motion.div>
-        </motion.div>
+        ))}
+      </div>
+
+      {/* ═══ Firework bursts ═══ */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {bursts.map((burst) => (
+          <Fireworks key={burst.id} {...burst} />
+        ))}
+      </div>
+
+      {/* ═══ Photo carousel (after trigger) ═══ */}
+      {triggered && (
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 0.18, scale: 1 }}
+            transition={{ duration: 1.5 }}
+            className="relative w-72 h-96 md:w-96 md:h-[28rem]"
+          >
+            {FINALE_PHOTOS.map((src, i) => (
+              <motion.img
+                key={i}
+                src={src}
+                alt=""
+                className="absolute inset-0 w-full h-full object-cover rounded-3xl"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{
+                  opacity: photoIdx === i ? 1 : 0,
+                  scale: photoIdx === i ? 1 : 0.95,
+                }}
+                transition={{ duration: 1.2 }}
+                style={{
+                  filter: 'blur(2px)',
+                  boxShadow: '0 0 80px rgba(249, 115, 22, 0.4)',
+                }}
+              />
+            ))}
+          </motion.div>
+        </div>
       )}
 
-      {/* ═══ REVEAL (after curtains close) ═══ */}
-      {phase === 'reveal' && (
+      {/* ═══ Main content ═══ */}
+      <div className="relative z-10 text-center max-w-4xl">
+        {/* Heart */}
         <motion.div
-          key="reveal"
-          className="fixed inset-0 z-[100] bg-black flex items-center justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 1, delay: 0.3, ease: 'backOut' }}
+          className="text-6xl md:text-8xl mb-6 animate-heartbeat"
         >
-          <motion.p
-            className="text-2xl md:text-3xl text-orange-300/80 font-light italic"
-            style={{ fontFamily: "'Playfair Display', serif" }}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-          >
-            C'est parti… 🧡
-          </motion.p>
+          🧡
         </motion.div>
-      )}
-    </AnimatePresence>
+
+        {/* Letter-by-letter reveal — "2 ans qu'on se connaît" */}
+        <h2
+          className="text-3xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          {title.map((word, wi) => (
+            <span key={wi} className="inline-block mr-3">
+              {word.split('').map((char, ci) => (
+                <motion.span
+                  key={ci}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.6 + wi * 0.25 + ci * 0.05,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="inline-block text-shimmer"
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
+          ))}
+        </h2>
+
+        {/* "Angie" calligraphic subtitle */}
+        <h3
+          className="text-4xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight"
+          style={{ fontFamily: "'Great Vibes', cursive", fontWeight: 400 }}
+        >
+          {subtitle.map((char, ci) => (
+            <motion.span
+              key={ci}
+              initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
+              animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
+              transition={{
+                duration: 0.8,
+                delay: 1.4 + ci * 0.1,
+                ease: 'backOut',
+              }}
+              className="inline-block text-shimmer"
+            >
+              {char}
+            </motion.span>
+          ))}
+        </h3>
+
+        {/* Date pill — 12 Juin 2026 */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 2.0 }}
+          className="mb-8"
+        >
+          <span
+            className="inline-block px-5 py-2 rounded-full text-xs md:text-sm tracking-[0.3em] uppercase text-orange-200/80 border border-orange-500/30 bg-orange-500/5 backdrop-blur-sm"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            ✦ 12 Juin 2026 — nos 2 ans ✦
+          </span>
+        </motion.div>
+
+        {/* Big message */}
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 2.2, ease: 'easeOut' }}
+          className="text-lg md:text-2xl text-orange-100/70 font-light leading-relaxed mb-4 max-w-2xl mx-auto"
+          style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        >
+          2 ans. 730 jours de complicité, de fous rires, de délires improvisés,
+          de discussions à n'importe quelle heure. Et ce n'est que le début.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1, delay: 2.4, ease: 'easeOut' }}
+          className="text-base md:text-lg text-orange-100/45 font-light italic leading-relaxed mb-12"
+          style={{ fontFamily: "'Playfair Display', serif" }}
+        >
+          « Les meilleures amitiés, c'est celles où on peut être complètement fou
+          ensemble sans se juger. » 🌟
+        </motion.p>
+
+        {/* Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 2.7 }}
+        >
+          <motion.button
+            onClick={handleSurprise}
+            whileHover={{ scale: triggered ? 1 : 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            disabled={triggered}
+            className={`group relative px-10 py-5 rounded-full overflow-hidden transition-all duration-500 ${
+              triggered ? 'animate-glow-pulse' : ''
+            }`}
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            <div
+              className={`absolute inset-0 transition-all duration-700 ${
+                triggered
+                  ? 'bg-gradient-to-r from-amber-500 via-orange-400 to-amber-500'
+                  : 'bg-gradient-to-r from-orange-600 via-orange-500 to-amber-500'
+              }`}
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover:opacity-40 blur-2xl transition-opacity duration-500" />
+            <span className="relative text-white font-medium text-lg tracking-[0.2em] uppercase flex items-center gap-2">
+              {triggered ? '🧡 Pour toujours !' : 'Touche pour la magie ✨'}
+            </span>
+          </motion.button>
+        </motion.div>
+
+        {/* Signature */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 1, delay: 3 }}
+          className="mt-20 text-sm tracking-[0.4em] uppercase text-orange-300/30"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Fait avec 🧡 pour Angie — pour nos 2 ans et tous ceux à venir
+        </motion.p>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════
+// FIREWORK COMPONENT
+// ═══════════════════════════════════════════════
+function Fireworks({ x, y, hue, delay, size }: Burst) {
+  const PARTICLES = 30;
+  const particles = Array.from({ length: PARTICLES }, (_, i) => ({
+    angle: (Math.PI * 2 * i) / PARTICLES,
+    distance: size + Math.random() * 40,
+    color: `hsl(${hue + Math.random() * 20}, 100%, ${60 + Math.random() * 20}%)`,
+    size: 2 + Math.random() * 3,
+  }));
+
+  return (
+    <motion.div
+      className="absolute"
+      style={{ left: `${x}%`, top: `${y}%` }}
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 0.3, delay }}
+    >
+      {particles.map((p, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
+          }}
+          initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
+          animate={{
+            x: Math.cos(p.angle) * p.distance,
+            y: Math.sin(p.angle) * p.distance + 100,
+            opacity: 0,
+            scale: 0.3,
+          }}
+          transition={{
+            duration: 1.6,
+            delay: delay + 0.2,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+        />
+      ))}
+      <motion.div
+        className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full"
+        style={{
+          width: 20,
+          height: 20,
+          background: `hsl(${hue}, 100%, 80%)`,
+          boxShadow: `0 0 60px hsl(${hue}, 100%, 60%)`,
+        }}
+        initial={{ scale: 0, opacity: 1 }}
+        animate={{ scale: 4, opacity: 0 }}
+        transition={{ duration: 0.8, delay }}
+      />
+    </motion.div>
   );
 }
