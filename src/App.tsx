@@ -6,6 +6,7 @@ import IntroOverlay from './components/IntroOverlay';
 import HeroSection from './components/HeroSection';
 import StorySection from './components/StorySection';
 import QualitiesSection from './components/QualitiesSection';
+import JournalSection from './components/JournalSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
 import LetterSection from './components/LetterSection';
@@ -14,7 +15,7 @@ import AudioToggle from './components/AudioToggle';
 import ScrollProgressBar from './components/ScrollProgressBar';
 
 // ═══════════════════════════════════════════════
-// DATA: Story sections — 2 ans de rencontre (12 juin 2024 → 12 juin 2026)
+// DATA: Story sections — 2 ans de rencontre
 // ═══════════════════════════════════════════════
 const storyData = [
   {
@@ -46,7 +47,7 @@ const storyData = [
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Qualities (inchangé)
+// DATA: Qualities
 // ═══════════════════════════════════════════════
 const qualitiesData = [
   {
@@ -130,7 +131,7 @@ const galleryData = [
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Messages — adapté au thème "2 ans de rencontre"
+// DATA: Messages
 // ═══════════════════════════════════════════════
 const messagesData = [
   {
@@ -163,10 +164,9 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#050505] text-white">
-      {/* ═══ Background layers (z-0, z-1) ═══ */}
+      {/* Background layers */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <ParticleCanvas density={50} connectDistance={120} />
-        {/* FloatingHearts sits above particles but below content */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           <FloatingHearts count={28} />
         </div>
@@ -190,12 +190,7 @@ export default function App() {
 
         <HeroSection />
 
-        <div className="flex items-center justify-center py-8">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-          <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-        </div>
-
+        <Divider />
         <div className="max-w-7xl mx-auto">
           {storyData.map((story, i) => (
             <StorySection
@@ -210,41 +205,36 @@ export default function App() {
           ))}
         </div>
 
-        <div className="flex items-center justify-center py-8">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-          <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-        </div>
-
+        <Divider />
         <QualitiesSection qualities={qualitiesData} />
 
-        <div className="flex items-center justify-center py-8">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-          <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-        </div>
+        <Divider />
+        {/* 🆕 NEW: Journal Intime */}
+        <JournalSection />
 
+        <Divider />
         <GallerySection items={galleryData} />
 
-        <div className="flex items-center justify-center py-8">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-          <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-        </div>
-
+        <Divider />
         <MessageSection messages={messagesData} />
 
-        <div className="flex items-center justify-center py-8">
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-          <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
-          <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
-        </div>
-
-    
+        <Divider />
         <LetterSection />
 
+        <Divider />
         <FinaleSection />
       </div>
+    </div>
+  );
+}
+
+// Small divider component
+function Divider() {
+  return (
+    <div className="flex items-center justify-center py-8">
+      <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
+      <span className="mx-4 text-orange-500/30 text-xs animate-twinkle">✦</span>
+      <div className="w-16 h-px bg-gradient-to-r from-transparent via-orange-500/30 to-transparent" />
     </div>
   );
 }
