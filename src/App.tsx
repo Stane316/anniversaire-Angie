@@ -80,49 +80,49 @@ const qualitiesData = [
 ];
 
 // ═══════════════════════════════════════════════
-// DATA: Gallery items (placeholders)
+// DATA: Gallery items — paths FIXED (no trailing spaces, "fou-rire" not "fou-rires")
 // ═══════════════════════════════════════════════
 const galleryData = [
   {
     emoji: '📸',
     label: 'Selfies échangés',
-    image: 'public/images/selfie1.jpeg ',
+    image: '/images/selfie1.jpeg',
     description: 'Remplace par nos selfies du quotidien',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 50%, #f97316 100%)',
   },
   {
     emoji: '😂',
     label: 'Fous rires',
-    image: 'public/images/fou-rire.jpeg ',
-    description:  'pires/moments les plus drôles',
+    image: '/images/fou-rire.jpeg',
+    description: 'Remplace par nos pires/moments les plus drôles',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fb923c 50%, #fbbf24 100%)',
   },
   {
     emoji: '📱',
     label: 'Messages quotidiens',
-    image: 'public/images/messages.jpeg ',
-    description: 'screenshots de nos conversations',
+    image: '/images/messages.jpeg',
+    description: 'Remplace par des screenshots de nos conversations',
     gradient: 'linear-gradient(135deg, #431407 0%, #c2410c 50%, #f97316 100%)',
   },
   {
     emoji: '🎬',
     label: 'Sessions Nollywood',
-    image: 'public/images/nollywood.jpeg ',
-    description: ' photos de nos sessions tv',
+    image: '/images/nollywood.jpeg',
+    description: 'Remplace par des photos de nos sessions tv',
     gradient: 'linear-gradient(135deg, #7c2d12 0%, #ea580c 100%)',
   },
   {
     emoji: '🌸',
     label: 'Mode star',
-    image: 'public/images/mode-star.jpeg ',
-    description: ' photos de toi en mode lecture',
+    image: '/images/mode-star.jpeg',
+    description: 'photos de toi en mode lecture',
     gradient: 'linear-gradient(135deg, #9a3412 0%, #fdba74 50%, #fed7aa 100%)',
   },
   {
     emoji: '💃',
     label: 'Dance mode',
-    image: 'public/images/dance-mode.jpeg ',
-    description: 'meilleurs moves de danse',
+    image: '/images/dance-mode.jpeg',
+    description: 'Remplace par tes meilleurs moves de danse',
     gradient: 'linear-gradient(135deg, #431407 0%, #ea580c 50%, #fbbf24 100%)',
   },
 ];
@@ -148,7 +148,7 @@ const messagesData = [
     author: 'En retard mais sincère 🧡',
   },
   {
-    text: 'Merci pour chaque discussion profonde à n\'importe quel heure . Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
+    text: 'Merci pour chaque discussion profonde à n\'importe quel heure. Pour chaque "regarde ça" qui finissait en 2h de délire. Pour chaque fois où tu m\'as suivi dans mes trucs sans même poser de questions. Tu es la meilleure, Angie. Vraiment.',
     author: 'Avec tout mon cœur',
   },
 ];
@@ -173,8 +173,8 @@ export default function App() {
         className="relative z-10"
         style={{
           opacity: entered ? 1 : 0,
-          transition: 'opacity 1s ease 0.5s',
-          pointerEvents: entered ? 'auto' : 'none',
+          visibility: entered ? 'visible' : 'hidden',
+          transition: 'opacity 0.8s ease',
         }}
       >
         <ScrollProgressBar />
