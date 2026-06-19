@@ -8,6 +8,7 @@ import StorySection from './components/StorySection';
 import QualitiesSection from './components/QualitiesSection';
 import JournalSection from './components/JournalSection';
 import StatsSection from './components/StatsSection';
+import BucketListSection from './components/BucketListSection';
 import GallerySection from './components/GallerySection';
 import MessageSection from './components/MessageSection';
 import LetterSection from './components/LetterSection';
@@ -213,8 +214,11 @@ export default function App() {
         <JournalSection />
 
         <Divider />
-        {/* 🆕 NEW: Stats Section */}
         <StatsSection />
+
+        <Divider />
+        {/* 🆕 NEW: Bucket List */}
+        <BucketListSection />
 
         <Divider />
         <GallerySection items={galleryData} />
