@@ -110,9 +110,11 @@ export default function GallerySection({ items }: GallerySectionProps) {
                 style={{ background: item.gradient }}
               >
                 <img
-                  src={item.image}
-                  alt={item.label}
-                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                    src={item.image}
+                    alt={item.label}  // ← Garde cet alt pour les photos de la gallery (elles ont du sens)
+                    loading="lazy"   // ← AJOUT : lazy load
+                    decoding="async" // ← AJOUT : decode async pour performance
+                    className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
                 />
 
                 <div className="absolute inset-0 flex flex-col items-center justify-end p-4 bg-gradient-to-t from-black/70 via-transparent to-transparent">
@@ -232,7 +234,8 @@ export default function GallerySection({ items }: GallerySectionProps) {
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               className="relative max-w-5xl w-full"
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => { e.stopPropagation(); setLightboxIdx(null); }}
+              aria-label="Fermer la galerie en grand"
             >
               <div className="relative rounded-3xl overflow-hidden shadow-[0_0_80px_rgba(249,115,22,0.3)] border border-orange-500/20">
                 <img

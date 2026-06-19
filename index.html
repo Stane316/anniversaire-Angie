@@ -3,16 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧡</text></svg>" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="description" content="Une dédicace pour Angie — 2 ans qu'on se connaît depuis le 12 juin 2024. Un site qui ne fane jamais, comme notre amitié." />
     <meta name="theme-color" content="#050505" />
-    <title>Pour Angie 🧡 ✦ 2 ans qu'on se connaît</title>
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="Pour Angie 🧡 — 2 ans qu'on se connaît" />
+    <meta property="og:description" content="Une dédicace spéciale pour nos 2 ans d'amitié. Un site qui ne fane jamais." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+
+    <title>Pour Angie 🧡 — 2 ans qu'on se connaît</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Dancing+Script:wght@400;500;600;700&family=Great+Vibes:wght@400&family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* Inline critical above-the-fold CSS to avoid FOUC */
+      html, body { margin: 0; padding: 0; background: #050505; color: #fff; }
+    </style>
   </head>
   <body class="bg-black text-white overflow-x-hidden">
     <div id="root"></div>
+    <noscript>
+      <p style="color:white;background:black;padding:20px;text-align:center;">
+        Ce site nécessite JavaScript pour fonctionner. Activez-le pour découvrir la dédicace.
+      </p>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

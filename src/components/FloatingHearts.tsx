@@ -32,6 +32,22 @@ export default function FloatingHearts({ count = 28 }: { count?: number }) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Ajouter dans le useEffect après le setup initial :
+    const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+               if (!animId) animId = requestAnimationFrame(animate);
+            } else {
+              cancelAnimationFrame(animId);
+              animId = 0;
+            }
+         });
+       },
+       { threshold: 0 }
+    );
+    observer.observe(canvas);
+
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = document.documentElement.scrollHeight;
