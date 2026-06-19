@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ParticleCanvas from './components/ParticleCanvas';
 import CursorGlow from './components/CursorGlow';
+import FloatingHearts from './components/FloatingHearts';
 import IntroOverlay from './components/IntroOverlay';
 import HeroSection from './components/HeroSection';
 import StorySection from './components/StorySection';
@@ -161,8 +162,14 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen bg-[#050505] text-white">
-      {/* Background layers */}
-      <ParticleCanvas density={50} connectDistance={120} />
+      {/* ═══ Background layers (z-0, z-1) ═══ */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <ParticleCanvas density={50} connectDistance={120} />
+        {/* FloatingHearts sits above particles but below content */}
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <FloatingHearts count={28} />
+        </div>
+      </div>
       <CursorGlow />
 
       {/* Intro overlay */}
